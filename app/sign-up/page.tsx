@@ -1,5 +1,4 @@
-import React from "react";
-
+"use client";
 const SignUp = () => {
   return <div>SignUp Page</div>;
 };
