@@ -1,7 +1,25 @@
+"use client";
 import { Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth/auth-client";
+import { SignOutButton } from "@/components/sign-out-btn";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar } from "@/components/ui/avatar";
+import { AvatarFallback } from "./ui/avatar";
+
 export default function Navbar() {
+  // const session = await getSession();
+  // Task = Being able upload pic and keep it as a profile pic
+  const { data: session } = useSession();
   return (
     <nav className="border-b border-gray-200 bg-white">
       <div className="container mx-auto flex h-16 items-center px-4 justify-between">
@@ -13,16 +31,58 @@ export default function Navbar() {
           Job Tracker
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/sign-in">
-            <Button variant="ghost" className="text-gray-700 hover:text-black">
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button className="bg-primary hover:bg-primary/90">
-              Start for free
-            </Button>
-          </Link>
+          {session?.user ? (
+            <>
+              <Link href="dashboard">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-black"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <Avatar>
+                      <AvatarFallback className="bg-primary text-white">
+                        {session.user.name?.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {session.user.name}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {session.user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <SignOutButton />
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <>
+              <Link href="/sign-in">
+                <Button
+                  variant="ghost"
+                  className="text-gray-700 hover:text-black"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/sign-up">
+                <Button className="bg-primary hover:bg-primary/90">
+                  Start for free
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
