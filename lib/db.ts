@@ -23,10 +23,10 @@ if (!global.mongoose) {
   global.mongoose = cached;
 }
 
-const connectDB = async (uri: string): Promise<void> => {
+const connectDB = async (): Promise<void> => {
   try {
     // Attempt connection
-    await mongoose.connect(uri, {
+    await mongoose.connect(MONGODB_URI, {
       // Common configuration options
       autoIndex: true, // Useful for development, maybe false in production
     });
