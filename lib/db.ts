@@ -1,50 +1,57 @@
-import mongoose from "mongoose";
-const MONGODB_URI = process.env.MONGODB_URI;
+import mongoose from "mongoose"; // Mongoose for MongoDB
+const MONGODB_URI = process.env.MONGODB_URI; // DB URI from env
 
 if (!MONGODB_URI) {
-  throw new Error(
+  // Check if URI exists
+  throw new Error( // Throw error if not
     "Please define the MONGODB_URI environment variable inside .env.local",
   );
 }
 
 interface MongoooseCache {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
+  // Cache interface
+  conn: typeof mongoose | null; // Connection
+  promise: Promise<typeof mongoose> | null; // Promise
 }
 declare global {
-  // allow global `var` declarations
-
-  var mongoose: MongoooseCache | undefined;
+  // Global declaration
+  var mongoose: MongoooseCache | undefined; // Global var
 }
 
-const cached: MongoooseCache = global.mongoose || { conn: null, promise: null };
+const cached: MongoooseCache = global.mongoose || { conn: null, promise: null }; // Cached connection
 
 if (!global.mongoose) {
-  global.mongoose = cached;
+  // If not global
+  global.mongoose = cached; // Set global
 }
 
 const connectDB = async (): Promise<void> => {
+  // Connect function
   try {
     // Attempt connection
     await mongoose.connect(MONGODB_URI, {
+      // Connect with options
       // Common configuration options
       autoIndex: true, // Useful for development, maybe false in production
     });
 
-    console.log("MongoDB successfully connected.");
+    console.log("MongoDB successfully connected."); // Log success
   } catch (error) {
-    console.error("Initial MongoDB connection error:", error);
+    // Catch error
+    console.error("Initial MongoDB connection error:", error); // Log error
     process.exit(1); // Exit process with failure
   }
 };
 
 // Monitor connection events for lifecycle management
 mongoose.connection.on("error", (err) => {
-  console.error(`MongoDB connection error: ${err}`);
+  // On error
+  console.error(`MongoDB connection error: ${err}`); // Log
 });
 
 mongoose.connection.on("disconnected", () => {
-  console.log("MongoDB disconnected");
+  // On disconnect
+  console.log("MongoDB disconnected"); // Log
 });
 
-export default connectDB;
+export default connectDB; // Export function

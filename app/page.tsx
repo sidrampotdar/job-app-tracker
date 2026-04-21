@@ -2,37 +2,37 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Briefcase, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import ImageTabs from "@/components/image-tabs";
+
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <main className="flex-1">
-        {/* Hero Section */}
         <section className="container mx-auto px-4 py-32">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-black mb-6 text-6xl font-bold">
-              A better way to track your job application
+              Job Application Tracker
             </h1>
-
             <p className="text-muted-foreground mb-10 text-xl">
-              Capture, organize, and manage your job search in one place.
+              Organize and track your job applications with ease. Manage your
+              job search process from application to offer.
             </p>
-            <div className="flex flex-col items-center gap-4 ">
+            <div className="flex flex-col items-center gap-4">
               <Link href="/sign-up">
                 <Button size="lg" className="h-12 px-8 text-lg font-medium">
-                  Start for free
+                  Get Started
                   <ArrowRight className="ml-2" />
                 </Button>
               </Link>
               <p className="text-sm text-muted-foreground">
-                Free forever. No credit card required.
+                Already have an account?{" "}
+                <Link href="/sign-in" className="text-primary hover:underline">
+                  Sign in
+                </Link>
               </p>
             </div>
           </div>
         </section>
-        {/* Hero Images Section */}
         <ImageTabs />
-
-        {/* Features Section */}
         <section className="border-t bg-white py-24">
           <div className="container mx-auto px-4">
             <div className="grid gap-12 md:grid-cols-3">
@@ -78,11 +78,4 @@ export default function Home() {
       </main>
     </div>
   );
-}
-{
-  /* JOB IS IMP THESE LAST 114 days remaining End Of April will be completion
-        of TechStack and DSA Level 1 We are not going to just build anything I
-        am doing what matters now ... And in a special Way OKAY .... BE patient
-        BE Consistant______Some Days may feel winning some may force to leave
-        this Some feel hard so JUST go ahead */
 }

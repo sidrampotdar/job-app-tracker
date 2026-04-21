@@ -1,24 +1,25 @@
-import mongoose from "mongoose";
-import { Schema, Document } from "mongoose";
+import mongoose from "mongoose"; // Mongoose
+import { Schema, Document } from "mongoose"; // Schema types
 
 export interface IBoard extends Document {
-  name: string;
-  userId: string;
-  columns: mongoose.Types.ObjectId[];
-  createdAt: Date;
-  updatedAt: Date;
+  // Board interface
+  name: string; // Name
+  userId: string; // User ID
+  columns: mongoose.Types.ObjectId[]; // Columns refs
+  createdAt: Date; // Created
+  updatedAt: Date; // Updated
 }
 
-const BoardSchema = new Schema<IBoard>(
+const BoardSchema = new Schema<IBoard>( // Board schema
   {
-    name: { type: String, required: true },
-    userId: { type: String, required: true, index: true },
-    columns: [{ type: Schema.Types.ObjectId, ref: "Column" }],
+    name: { type: String, required: true }, // Name field
+    userId: { type: String, required: true, index: true }, // User ID with index
+    columns: [{ type: Schema.Types.ObjectId, ref: "Column" }], // Columns array
   },
   {
-    timestamps: true,
+    timestamps: true, // Auto timestamps
   },
 );
 
-export default mongoose.models.Board ||
+export default mongoose.models.Board || // Export model
   mongoose.model<IBoard>("Board", BoardSchema);
