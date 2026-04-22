@@ -1,5 +1,5 @@
 "use client";
-import { Board, Column } from "@/lib/models/models.types";
+import { Board, Column, JobApplication } from "@/lib/models/models.types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import CreateJobApplicationDialog from "@/components/create-job-app-dialog";
@@ -54,11 +54,16 @@ function DropableColumn({
   column,
   config,
   boardId,
+  sortedColumns,
 }: {
   column: Column;
   config: ColConfig;
   boardId: string;
+  sortedColumns: Column[];
 }) {
+  const sortedJobs =
+    column.jobApplications?.sort((a, b) => a.order - b.order) || []; // Sort job applications by order
+
   return (
     <Card className="min-w-[300px] flex-shrink-0 shadow-md p-0">
       <CardHeader
@@ -94,6 +99,13 @@ function DropableColumn({
         className={`space-y-2 pt-4 bg-gray-50/50 min-h-[400px] rounded-b-lg $
         }`}
       >
+        {sortedJobs.map((job, key) => (
+          <SortableJobCard
+            key={key}
+            job={{ ...job, columnId: job.columnId || column._id }}
+            columns={sortedColumns}
+          />
+        ))}
         <CreateJobApplicationDialog columnId={column._id} boardId={boardId} />
       </CardContent>
     </Card>
@@ -101,6 +113,9 @@ function DropableColumn({
 }
 const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
   const cols = board.columns; // now full objects
+  // console.log(cols); // Log columns to verify data
+
+  const sortedColumns = cols?.sort((a, b) => a.order - b.order) || [];
   return (
     <>
       <div>
@@ -116,6 +131,7 @@ const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
                 column={col}
                 config={config}
                 boardId={String(board._id)}
+                sortedColumns={sortedColumns}
               />
             );
           })}
@@ -124,5 +140,14 @@ const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
     </>
   );
 };
+function SortableJobCard({
+  job,
+  columns,
+}: {
+  job: JobApplication;
+  columns: Column[];
+}) {
+  return <div></div>;
+}
 
 export default KabanBoard;

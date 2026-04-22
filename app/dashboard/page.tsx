@@ -20,7 +20,12 @@ const Dashboard = async () => {
     userId: session.user.id,
     name: "Job Hunt",
   })
-    .populate("columns") // Populate columns
+    .populate({
+      path: "columns",
+      populate: {
+        path: "jobApplications",
+      },
+    }) // Populate columns
     .lean(); // Lean query
 
   if (!boardDoc) {
@@ -28,7 +33,6 @@ const Dashboard = async () => {
     redirect("/sign-in");
   }
   const board = JSON.parse(JSON.stringify(boardDoc)); // Serialize to plain object
-
   return (
     <div className="min-h-screen bg-white">
       <div className="container mx-auto p-6">
