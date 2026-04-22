@@ -3,6 +3,7 @@ import { Board, Column, JobApplication } from "@/lib/models/models.types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import CreateJobApplicationDialog from "@/components/create-job-app-dialog";
+import JobApplicationCard from "@/components/job-application-card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -119,23 +120,21 @@ const KabanBoard = ({ board, userId }: KanbanBoardProps) => {
   return (
     <>
       <div>
-        <div>
-          {cols.map((col, key) => {
-            const config = COLUMN_CONFIG[key % COLUMN_CONFIG.length] || {
-              color: "bg-gray-500",
-              icon: <Calendar className="h-4 w-4" />,
-            };
-            return (
-              <DropableColumn
-                key={key}
-                column={col}
-                config={config}
-                boardId={String(board._id)}
-                sortedColumns={sortedColumns}
-              />
-            );
-          })}
-        </div>
+        {cols.map((col, key) => {
+          const config = COLUMN_CONFIG[key % COLUMN_CONFIG.length] || {
+            color: "bg-gray-500",
+            icon: <Calendar className="h-4 w-4" />,
+          };
+          return (
+            <DropableColumn
+              key={key}
+              column={col}
+              config={config}
+              boardId={String(board._id)}
+              sortedColumns={sortedColumns}
+            />
+          );
+        })}
       </div>
     </>
   );
@@ -147,7 +146,7 @@ function SortableJobCard({
   job: JobApplication;
   columns: Column[];
 }) {
-  return <div></div>;
+  return <JobApplicationCard job={job} columns={columns} />;
 }
 
 export default KabanBoard;
