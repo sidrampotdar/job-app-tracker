@@ -39,7 +39,7 @@ const SignIn = () => {
       } else {
         router.push("/dashboard"); // Redirect to dashboard
       }
-    } catch (error) {
+    } catch {
       // Catch error
       setError("Failed to Sign in.");
     } finally {
@@ -49,29 +49,13 @@ const SignIn = () => {
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-white p-4">
-      {" "}
-      // Centered layout
       <Card className="w-full max-w-md border-gray-200 shadow-lg">
-        {" "}
-        // Card container
         <CardHeader className="space-y-1">
-          {" "}
-          // Header
-          <CardTitle className="text-2xl font-bold text-black">
-            {" "}
-            // Title Sign In
-          </CardTitle>
-          <CardDescription className="text-gray-600">
-            {" "}
-            // Description Enter your credentials to access your account
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold text-black"></CardTitle>
+          <CardDescription className="text-gray-600"></CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {" "}
-          // Form
           <CardContent className="space-y-4">
-            {" "}
-            // Content
             {error && ( // Error display
               <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
                 {" "}
@@ -79,12 +63,7 @@ const SignIn = () => {
               </div>
             )}
             <div className="space-y-2">
-              {" "}
-              // Email field
-              <Label htmlFor="email" className="text-gray-700">
-                {" "}
-                // Label Email
-              </Label>
+              <Label htmlFor="email" className="text-gray-700"></Label>
               <Input // Input
                 id="email"
                 type="email"
@@ -96,12 +75,7 @@ const SignIn = () => {
               />
             </div>
             <div className="space-y-2">
-              {" "}
-              // Password field
-              <Label htmlFor="password" className="text-gray-700">
-                {" "}
-                // Label Password
-              </Label>
+              <Label htmlFor="password" className="text-gray-700"></Label>
               <Input // Input
                 id="password"
                 type="password"
@@ -114,18 +88,14 @@ const SignIn = () => {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            {" "}
-            // Footer
             <Button // Submit button
               type="submit"
               disabled={loading}
               className="w-full bg-primary hover:bg-primary/90"
             >
-              {loading ? "Signing in..." : "Sign In"} // Button text
+              {loading ? "Signing in..." : "Sign In"}
             </Button>
             <p className="text-center text-sm text-gray-600">
-              {" "}
-              // Link to sign up Already have an account?{" "}
               <Link
                 href="/sign-up"
                 className="font-medium text-primary hover:underline"
