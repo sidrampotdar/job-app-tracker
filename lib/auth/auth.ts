@@ -5,9 +5,8 @@ import initUserBoard from "@/lib/init-user-board"; // Init board
 import { headers } from "next/headers"; // Headers
 import { redirect } from "next/navigation"; // Redirect
 
-// Connect to MongoDB
+// Connect to MongoDB lazily.
 const client = new MongoClient(process.env.MONGODB_URI!); // Client
-await client.connect(); // Connect
 const db = client.db(); // Get DB
 
 const authBaseURL =
