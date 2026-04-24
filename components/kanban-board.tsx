@@ -21,7 +21,6 @@ import {
   Calendar,
   CheckCircle2,
   Mic,
-  MoreHorizontal,
   MoreVertical,
   Trash2,
   XCircle,
@@ -41,11 +40,9 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { ActiveDraggableContext } from "@dnd-kit/core/dist/components/DndContext";
 
 interface KanbanBoardProps {
   board: Board;
-  userId: string;
 }
 
 interface ColConfig {
@@ -191,7 +188,7 @@ function SortableJobCard({
   );
 }
 
-export default function KanbanBoard({ board, userId }: KanbanBoardProps) {
+export default function KanbanBoard({ board }: KanbanBoardProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const { columns, moveJob } = useBoard(board);
 

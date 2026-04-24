@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Job Application Tracker
 
-## Getting Started
+A personal job application tracker built with Next.js, MongoDB, and Better Auth. This app lets authenticated users manage job applications with kanban-style boards, add new application cards, and keep application status in sync.
 
-First, run the development server:
+## Features
+
+- Email/password authentication with `better-auth`
+- MongoDB storage for user data and job application boards
+- Kanban-style board for tracking application status
+- Create, update, and delete job applications
+- Protected dashboard and auth pages using server-side session handling
+- Responsive UI built with Tailwind CSS, `shadcn` components, and `@dnd-kit`
+
+## Tech stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- MongoDB + Mongoose
+- Better Auth
+- `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`
+- `lucide-react`, `clsx`, `class-variance-authority`
+
+## Getting started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a `.env.local` file at the project root with at least the following values:
+
+```env
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>/<dbname>?retryWrites=true&w=majority
+BETTER_AUTH_SECRET=some-long-random-secret
+BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_AUTH_BASE_URL=http://localhost:3000
+```
+
+- `MONGODB_URI` is required for both the application and auth adapter.
+- `BETTER_AUTH_SECRET` is used to sign auth sessions.
+- `BETTER_AUTH_URL` is the base URL for the auth backend.
+- `NEXT_PUBLIC_AUTH_BASE_URL` is used by the client auth helper.
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Seed sample data (optional)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+If you want to populate initial job applications, run:
 
-## Learn More
+```bash
+npm run seed:jobs
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `npm run dev` - start Next.js in development mode
+- `npm run build` - build the production app
+- `npm run start` - run the production build
+- `npm run lint` - run ESLint
+- `npm run seed:jobs` - seed the database with sample job application data
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project structure
 
-## Deploy on Vercel
+- `app/` - page routes and auth flow
+- `components/` - shared UI components and board cards
+- `lib/` - database setup, auth utilities, actions, models, and helpers
+- `public/` - static assets
+- `scripts/seed.ts` - sample data seeding script
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Auth pages are protected through `proxy.ts`, which handles redirecting authenticated users away from sign-in/sign-up routes.
+- New users receive an initialized board via `lib/auth/auth.ts` database hooks.
+
+## License
+
+This project is currently private and not licensed for public distribution.
