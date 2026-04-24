@@ -1,6 +1,6 @@
 # Job Application Tracker
 
-A personal job application tracker built with Next.js, MongoDB, and Better Auth. This app lets authenticated users manage job applications with kanban-style boards, add new application cards, and keep application status in sync.
+A personal job application tracker built with Next.js and MongoDB, and Better Auth. This app lets authenticated users manage job applications with kanban-style boards, add new application cards, and keep application status in sync.
 
 ## Features
 
@@ -41,10 +41,20 @@ BETTER_AUTH_URL=http://localhost:3000
 NEXT_PUBLIC_AUTH_BASE_URL=http://localhost:3000
 ```
 
+For Vercel deployment, add matching production values in your Vercel dashboard:
+
+```env
+MONGODB_URI=<your-production-mongodb-uri>
+BETTER_AUTH_SECRET=<your-production-secret>
+BETTER_AUTH_URL=https://<your-vercel-app>.vercel.app
+NEXT_PUBLIC_AUTH_BASE_URL=https://<your-vercel-app>.vercel.app
+```
+
 - `MONGODB_URI` is required for both the application and auth adapter.
 - `BETTER_AUTH_SECRET` is used to sign auth sessions.
-- `BETTER_AUTH_URL` is the base URL for the auth backend.
+- `BETTER_AUTH_URL` is the base URL for the auth backend on the server.
 - `NEXT_PUBLIC_AUTH_BASE_URL` is used by the client auth helper.
+- If `NEXT_PUBLIC_AUTH_BASE_URL` is not set, the client falls back to the local `/api/auth` route.
 
 ### 3. Run the development server
 
