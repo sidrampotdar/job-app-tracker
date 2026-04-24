@@ -1,10 +1,6 @@
 import { createAuthClient } from "better-auth/react"; // Better auth client
 
-const authBaseURL =
-  process.env.NEXT_PUBLIC_AUTH_BASE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+const authBaseURL = "https://job-app-tracker-ruby.vercel.app/";
 
 export const authClient = createAuthClient({
   baseURL: authBaseURL,

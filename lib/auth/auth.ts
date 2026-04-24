@@ -9,11 +9,7 @@ import { redirect } from "next/navigation"; // Redirect
 const client = new MongoClient(process.env.MONGODB_URI!); // Client
 const db = client.db(); // Get DB
 
-const authBaseURL =
-  process.env.BETTER_AUTH_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+const authBaseURL = "https://job-app-tracker-ruby.vercel.app/";
 
 export const auth = betterAuth({
   // Auth config
